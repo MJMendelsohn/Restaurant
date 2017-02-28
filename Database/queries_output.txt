@@ -1,0 +1,7 @@
+sh-4.3$ sqlite3 database.sdb < main.sql
+Error: near line 104: UNIQUE constraint failed: Location.zip_code
+The Little Dipper
+Dragon Gate
+The Little Dipper
+Beyu Caffe
+0
