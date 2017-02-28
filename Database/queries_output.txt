@@ -3,7 +3,7 @@ FROM Restaurant
 WHERE Restaurant.price_range = 4;
        name        
 -------------------
-The Little Dipper
+ The Little Dipper
 (1 row)
 --Finds name of restaurants in the same zipcode as each user
 SELECT R.name, U.username
@@ -34,15 +34,11 @@ SELECT name FROM Restaurant r WHERE r.price_range = 3;
 (1 row)
 -- Select only the names of restaurants that serve a selected food, 'peaches'
 SELECT name from Restaurant r, Serves s, Food f WHERE f.food_id = s.food_id AND r.rest_id = s.rest_id AND f.item
- = 'peaches';
- name 
-------
-(0 rows)
--- Select only the names of restaurants at a particular ZIP code, 12345
-SELECT name from Restaurant r1, RestaurantAt r2 WHERE r1.rest_id = r2.rest_id AND r2.zip_code = 12345;
- name 
-------
-(0 rows)
+ = 'Scallops';
+       name        
+-------------------
+ The Little Dipper
+(1 row)
 -- Get the number of users at a particular ZIP code, 12345
 SELECT COUNT(DISTINCT username) FROM LivesAt la WHERE la.zip_code = 12345;
  count 
@@ -50,4 +46,15 @@ SELECT COUNT(DISTINCT username) FROM LivesAt la WHERE la.zip_code = 12345;
      1
 (1 row)
 
-
+---Selects all restaurants that a pair of friends have swiped the same way on
+SELECT Friends.username1,Friends.username2, u1.rest_id
+FROM Friends, Userswipe u1, Userswipe u2
+WHERE Friends.username1 = u1.username
+AND Friends.username2 = u2.username
+AND u1.rest_id = u2.rest_id
+AND u1.likes = u2.likes;
+  username1   |    username2    | rest_id 
+--------------+-----------------+---------
+ rohizzledawg | foodeater27     |    3214
+ rohizzledawg | thebluemagician |    3333
+(2 rows)
