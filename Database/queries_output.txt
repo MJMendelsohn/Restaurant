@@ -32,7 +32,7 @@ SELECT name FROM Restaurant r WHERE r.price_range = 3;
 ------------
  Beyu Caffe
 (1 row)
--- Select only the names of restaurants that serve a selected food, 'peaches'
+-- Select only the names of restaurants that serve a selected food, 'Scallops'
 SELECT name from Restaurant r, Serves s, Food f WHERE f.food_id = s.food_id AND r.rest_id = s.rest_id AND f.item
  = 'Scallops';
        name        
