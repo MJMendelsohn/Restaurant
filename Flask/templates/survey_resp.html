@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <p>Your form response was: {{ username }}</p>
+    <p>
+    Your form response was: <br>
+      Username: {{ username }} <br>
+      Distance: {{ distance }} <br>
+      Party Size: {{ party_size }} <br>
+      Formal: {{ formal }} <br>
+      Alcohol: {{ alcohol }} <br>
+      Price Range: {{ min_price }} to {{ max_price }} <br>
+      Delivery: {{ delivery }} <br>
+      New Or Old: {% if new_old == 1 %} New {% else %} Old {% endif %} <br>
+    </p>
+
   </body>
 </html>
