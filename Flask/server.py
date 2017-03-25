@@ -5,12 +5,16 @@ from flask import render_template
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-    return render_template('analysisprogress.html')
+def homepage():
+    #Temporary until homepage is created
+    return survey()
     #return render_template('index.html')
 
+def survey():
+    return render_template('analysisprogress.html')
+
 @app.route('/survey', methods = ['POST'])
-def handle_servey():
+def handle_survey():
     username = request.form['username']
     distance = request.form['distance']
     party_size = request.form['partysize']
