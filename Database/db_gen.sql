@@ -9,7 +9,7 @@ CREATE TABLE Restaurant
   type2 VARCHAR(256),
   type3 VARCHAR(256),
   delivers BOOLEAN,
-  formal BOOLEAN,
+  attire VARCHAR(256),
   sit_down BOOLEAN
 );
 
