@@ -11,7 +11,7 @@ def homepage():
     #return render_template('index.html')
 
 def survey():
-    return render_template('analysisprogress.html')
+    return render_template('survey.html')
 
 @app.route('/survey', methods = ['POST'])
 def handle_survey():
