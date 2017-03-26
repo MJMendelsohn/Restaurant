@@ -1,0 +1,12 @@
+if the csv files don't already exist, run raw_data_process.m in Matlab to create excel files and then save them as .csv files
+
+in command line:
+
+sqlite3 RMatch.db < create_RMatch.sql
+
+sqlite3 RMatch.db
+
+.mode csv
+.import restaurant_data.csv Restaurant
+.import location_data.csv Location
+.import restaurant_at_data.csv RestaurantAt
