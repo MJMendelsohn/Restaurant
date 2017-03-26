@@ -1,0 +1,26 @@
+SELECT r.name
+FROM Restaurant r, User u, DinesAt d
+WHERE 
+-- INSERT USER'S DRESS CHOICE HERE
+r.attire = 'dressy'
+AND
+-- INSERT ALCOHOL CHOICE HERE
+r.alcohol = 'true'
+AND
+-- INSERT PRICE RANGE 
+r.price_range = 1
+-- THIS SYNTAX EXECUTES ONE THING OR THE OTHER, I.E., IF USER SELECTS DELIVERY, IT ONLY CHECKS TO SEE IF R.DELIVERS IS TRUE
+AND
+(userselectedthing = 'Delivery' AND r.delivers = 'true') OR
+(userselectedthing = 'Takeout' AND r.takeout = 'true') OR
+-- AS OF RIGHT NOW, I'M PRETTY SURE THERE'S NO SIT-DOWN ATTRIBUTE (CAN JUST TAKE THIS ONE OUT IF THAT'S THE CASE)
+(userselectedthing = 'Sit-Down' AND r.sit-down = 'true')
+AND 
+u.username = d.username
+AND
+-- EXECUTES ONE OR THE OTHER BASED ON IF USER WANTS OLD/NEW RESTAURANT
+( userselectedthing = 'Old' AND d.rest_id=r.rest_id) OR
+userselectedthing= 'New' AND d.rest_id!=r.rest_id);
+
+
+
