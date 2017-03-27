@@ -3,7 +3,7 @@ CREATE TABLE Restaurant
   rest_id INTEGER NOT NULL PRIMARY KEY,
   name VARCHAR(256),
   alcohol BOOLEAN,
-  price_range VARCHAR(256),
+  price_range DECIMAL,
   rating DECIMAL,
   type1 VARCHAR(256),
   type2 VARCHAR(256),
