@@ -40,12 +40,12 @@ CREATE TABLE Location
   PRIMARY KEY (street_address, zip_code)
 );
 
-CREATE TABLE Serves
+/*CREATE TABLE Serves
 (
   rest_id INTEGER REFERENCES Restaurant(rest_id),
   --TODO: Test -  Needs to be deleted if food item or restuarant is deleted
   food_id INTEGER NOT NULL PRIMARY KEY REFERENCES Food(food_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
+);*/
 
 CREATE TABLE RestaurantAt
 (
@@ -91,6 +91,6 @@ CREATE TABLE DinesAt
   username VARCHAR(256) REFERENCES Users(username) ON DELETE CASCADE ON UPDATE CASCADE,
   rest_id INTEGER REFERENCES Restaurant(rest_id) ON DELETE CASCADE ON UPDATE CASCADE,
   party_size INTEGER,
-  dinning_date VARCHAR(256),
+  dining_date VARCHAR(256),
   PRIMARY KEY (username, rest_id)
 );
