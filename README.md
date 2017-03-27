@@ -5,5 +5,7 @@ the three of these files can be compiled into one (in that exact order) to produ
 
 The syntax for the database creation in psql will follow this pattern: dropdb restaurantdb; createdb restaurantdb; psql restaurantdb -af FILENAME.sql
 
+In order to take the survey and view the results, run python server.py (located in the root folder), then open a web browser and go to "localhost:5000"
+
 
 
