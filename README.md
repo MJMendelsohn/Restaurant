@@ -1,11 +1,26 @@
 # Restaurant
 ---------------------
-In order to create the database, the db_gen file must be run in a virtual machine with the db_sampledata and db_queries file. Alternately,
-the three of these files can be compiled into one (in that exact order) to produce a populated database that will output the result of the sample queries. 
 
-The syntax for the database creation in psql will follow this pattern: dropdb restaurantdb; createdb restaurantdb; psql restaurantdb -af FILENAME.sql
+  Database Creation
+  -----------------
+  In order to create the database, first install sqlite3. Then, from the command line execute the following commands:
 
-In order to take the survey and view the results, run python server.py (located in the Flask folder), then open a web browser and go to "localhost:5000"
+  If you want to overwrite an existing instance of the database, execute the following command first:
+  > rm RMatch.db
+
+  > sqlite3 RMatch.db < create_RMatch.sql
+  > sqlite3 RMatch.db
+
+  Once in the sqlite environment, execute the following commands to populate the database with the data from the dataset
+
+  > .mode csv
+  > .import restaurant_data.csv Restaurant
+  > .import location_data.csv Location
+  > .import restaurant_at_data.csv RestaurantAt
+
+  If these .csv files do not exist, run raw_data_process.m in MATLAB, ensuring that output2.xlsx is in the path
 
 
-
+  Website Execution
+  -----------------
+  In order to take the survey and view the results, run python server.py (located in the Flask folder), then open a web browser and go to "localhost:5000"
