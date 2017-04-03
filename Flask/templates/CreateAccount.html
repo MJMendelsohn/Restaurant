@@ -2,14 +2,17 @@
 <head><title>Create an Account</title></head>
 <body>
 
-<form>
+<form action="/new_account" method="post">
 Create an Account
 <br><br>
   Enter a username:<br>
   <input type="text" name="username">
   <br><br>
   Enter a password:<br>
-  <input type="text" name="password">
+  <input type="password" name="password">
+  <br><br>
+  Confirm your password:<br>
+  <input type="password" name="confirm_password">
   <br><br>
   Enter your zip-code:<br>
   <input type="text" name="location">

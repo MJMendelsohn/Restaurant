@@ -24,6 +24,10 @@ def handle_login():
 def handle_create_account():
     return render_template('CreateAccount.html')
 
+@app.route('/new_account', methods = ['POST'])
+def create_new_account():
+    return "New Account Created"
+
 @app.route('/survey', methods = ['POST'])
 def handle_survey():
     query_results = sql.execute_survey_query(request.form)
