@@ -19,7 +19,7 @@ def add_user(username, pass_hash):
     cursor = __db_connect()
 
     with open(__query_path('add_user.sql')) as query_file:
-        cursor.execute(query_file.read(), {'username': username, 'password': pass_hash.encode('hex')})
+        cursor.execute(query_file.read(), {'username': username, 'password': pass_hash})
         db.commit()
 
 def execute_login(username):
@@ -27,7 +27,7 @@ def execute_login(username):
 
     with open(__query_path('username_query.sql')) as query_file:
         cursor.execute(query_file.read(), {'username': username})
-    return cursor.fetchall()
+    return cursor.fetchone()
 
 
 def __db_connect():

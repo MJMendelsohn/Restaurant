@@ -32,7 +32,7 @@ def create_new_account():
     return "New Account Created"
 
 def hash_pass(password):
-    return hashlib.md5(password).digest()
+    return hashlib.md5(password).digest().encode('hex')
 
 @app.route('/survey', methods = ['POST'])
 def handle_survey():
@@ -40,9 +40,11 @@ def handle_survey():
     return render_template('survey_resp.html', restaurants=query_results)
 
 def check_valid_login(username, password):
-    hash_pass(password)
-    # TODO: implement method
-    return True
+    hashed_pass = hash_pass(password)
+    db_pass = sql.execute_login(username)
+    print hashed_pass, type(hashed_pass)
+    print db_pass, type(db_pass)
+    return db_pass[0] == hashed_pass
 
 if __name__ == '__main__':
     app.run()
