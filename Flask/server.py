@@ -40,11 +40,11 @@ def handle_survey():
     return render_template('survey_resp.html', restaurants=query_results)
 
 def check_valid_login(username, password):
+    if (username is '' or password is ''):
+        return False
     hashed_pass = hash_pass(password)
     db_pass = sql.execute_login(username)
-    print hashed_pass, type(hashed_pass)
-    print db_pass, type(db_pass)
-    return db_pass[0] == hashed_pass
+    return (db_pass is not None and db_pass[0] == hashed_pass)
 
 if __name__ == '__main__':
     app.run()
