@@ -3,6 +3,8 @@ from flask import request
 from flask import render_template
 import query_gen as sql
 
+import hashlib
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -15,7 +17,7 @@ def survey():
 
 @app.route('/login', methods = ['POST'])
 def handle_login():
-    if (check_valid_login()):
+    if (check_valid_login(request.form['username'], request.form['password'])):
         return survey()
     else:
         return "Login Not Valid"
@@ -26,15 +28,21 @@ def handle_create_account():
 
 @app.route('/new_account', methods = ['POST'])
 def create_new_account():
+    sql.add_user(request.form['username'], hash_pass(request.form['password']))
     return "New Account Created"
+
+def hash_pass(password):
+    return hashlib.md5(password).digest()
 
 @app.route('/survey', methods = ['POST'])
 def handle_survey():
     query_results = sql.execute_survey_query(request.form)
     return render_template('survey_resp.html', restaurants=query_results)
 
-def check_valid_login():
+def check_valid_login(username, password):
+    hash_pass(password)
     # TODO: implement method
     return True
+
 if __name__ == '__main__':
     app.run()
