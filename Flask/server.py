@@ -28,7 +28,7 @@ def handle_create_account():
 
 @app.route('/new_account', methods = ['POST'])
 def create_new_account():
-    if (request.form['password'] is not request.form['confirm_password']):
+    if (request.form['password'] != request.form['confirm_password']):
         return "Passwords do not match"
     sql.add_user(request.form['username'], hash_pass(request.form['password']))
     return "New Account Created"
