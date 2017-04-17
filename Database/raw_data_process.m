@@ -2,7 +2,7 @@ clear;clc;
 
 full_data = import_data('output2.xlsx');
 
-attr_col_to_keep = [1:6,8,9, 26:29, 45, 60:64, 66, 68:83, 85];
+attr_col_to_keep = [1:6,8,9, 26:57, 60:64, 66, 68:83, 85];
 
 raw_data = full_data(2:end, attr_col_to_keep);
 raw_data(:,1) = num2cell([1:length(raw_data)]');
@@ -60,6 +60,25 @@ for i = 1:length(data2)
    end
 end
 
+wifi = find(cellfun(@(x) strcmp(x, 'Wi_Fi'), attr2));
+
+for i = 1:length(data2)
+   if strcmp(data2{i, wifi}, 'no')
+       data2{i, wifi} = 0;
+   elseif strcmp(data2{i, alcohol}, 'free')
+       data2{i, wifi} = 1;
+   end
+end
+
+smoking = find(cellfun(@(x) strcmp(x, 'Smoking'), attr2));
+
+for i = 1:length(data2)
+   if strcmp(data2{i, smoking}, 'no')
+       data2{i, smoking} = 0;
+   elseif strcmp(   data2{i, smoking}, 'outdoor')
+       data2{i, smoking} = 1;
+   end
+end
 
 categ_start = find(cellfun(@(x) strcmp(x,'Fast Food'), attr));
 
@@ -88,11 +107,12 @@ data = [data_cut,rest_categs];
 data = [cell(1, length(attr));data];
 data = cellfun(@remove_NA, data, 'UniformOutput', false);
 
-restaurant_attr = {'business_id', 'name', 'Alcohol', 'Price_Range', 'stars', 'type1', 'type2', 'type3', 'Delivery' 'Attire', 'Take_Out'};
-indices1 = [];
-for i = 1:length(restaurant_attr)
-    indices1 = [indices1; find(cellfun(@(x) strcmp(x,restaurant_attr{i}), attr))];   
-end
+% restaurant_attr = {'business_id', 'name', 'Alcohol', 'Price_Range', 'stars', 'type1', 'type2', 'type3', 'Delivery' 'Attire', 'Take_Out'};
+% indices1 = [];
+% for i = 1:length(restaurant_attr)
+%     indices1 = [indices1; find(cellfun(@(x) strcmp(x,restaurant_attr{i}), attr))];   
+% end
+indices1 = [1,7:8,10:length(attr)];
 restaurant_data = data(:, indices1);
 
 location_attr = {'address', 'zip_code', 'latitude', 'longitude', 'city', 'state'};
