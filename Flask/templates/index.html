@@ -1,5 +1,53 @@
 <!DOCTYPE html>
 <html>
+<style>
+body {
+font-family: "Raleway", sans-serif;
+}
+
+input[type=text], select {
+font-family: "Raleway", sans-serif;
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password], select {
+font-family: "Raleway", sans-serif;
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+font-family: "Raleway", sans-serif;
+    width: 25%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
   <body>
     <h1>Restaurant Test Page</h1>
     <p>This is a sample page.</p>
@@ -30,7 +78,9 @@
         </tr>
     </table>
     <form action=/survey method="post">
-      <input type="text" name="username">
+    <br>
+ Username: <br>
+<input type="text" name="username">
       <br>
       <input type="submit" value="Submit">
     </form>
