@@ -1,8 +1,8 @@
-SELECT r.name
+SELECT r.name, r.rest_id
 --TODO: Users and DinesAt are empty, and cause all search results to be None
 --Can be uncommented when populated
 FROM Restaurant r--, Users u, DinesAt d
-WHERE 
+WHERE
 r.attire = :formal
 AND
 r.alcohol = :alcohol
@@ -17,7 +17,7 @@ AND
 
 
 --Requires Users and DinesAt Tables
---AND 
+--AND
 --u.username = d.username
 --AND
 -- EXECUTES ONE OR THE OTHER BASED ON IF USER WANTS OLD/NEW RESTAURANT

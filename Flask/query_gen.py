@@ -15,12 +15,26 @@ def execute_survey_query(responses):
         cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'], 'new_or_old': responses['newOld']})
     return cursor.fetchall()
 
-def add_user(username, pass_hash):
+def add_user(username, pass_hash, address, zipcode):
     cursor = __db_connect()
 
-    with open(__query_path('add_user.sql')) as query_file:
-        cursor.execute(query_file.read(), {'username': username, 'password': pass_hash})
-        db.commit()
+    try:
+        with open(__query_path('add_user.sql')) as query_file:
+            cursor.execute(query_file.read(), {'username': username, 'password': pass_hash})
+            db.commit()
+
+        try:
+            with open(__query_path('add_user_location.sql')) as query_file:
+                cursor.execute(query_file.read(), {'address': address, 'zipcode': zipcode})
+                db.commit()
+        except sqlite3.IntegrityError: print "location not added"
+
+        with open(__query_path('add_user_livesat.sql')) as query_file:
+            cursor.execute(query_file.read(), {'username': username, 'address': address, 'zipcode': zipcode})
+            db.commit()
+            
+    except sqlite3.IntegrityError: print "user not added"
+
 
 def execute_login(username):
     cursor = __db_connect()
