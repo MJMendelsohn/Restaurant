@@ -14,7 +14,7 @@ def execute_survey_query(responses):
     formality = responses['formal'].lower()
 
     with open(__query_path('survey_queries.sql')) as query_file:
-        cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'],'maximum': responses['maximum'], 'new_or_old': responses['newOld']})
+        cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'], 'new_or_old': responses['newOld']})
     return cursor.fetchall()
 
 def add_user(username, pass_hash, address, zipcode):
@@ -26,8 +26,7 @@ def add_user(username, pass_hash, address, zipcode):
     try:
         user_lat_long = (user_location.latitude, user_location.longitude)
     except:
-        print "Address and Zipcode are not compatible with the geolocator. Please try again. User not added."
-        return "Address and Zipcode are not compatible with the geolocator. Please try again. User not added."
+        raise LocationError("The address and zip code were not compatible with geolocator")
 
     try:
         with open(__query_path('add_user.sql')) as query_file:
@@ -40,9 +39,7 @@ def add_user(username, pass_hash, address, zipcode):
                 db.commit()
 
         except sqlite3.IntegrityError:
-            print "The address and zipcode combination entered was not valid. Try again."
-            return "The address and zipcode combination entered was not valid. Try again."
-
+            print "Location not added because already in database."
 
         with open(__query_path('add_user_livesat.sql')) as query_file:
             cursor.execute(query_file.read(), {'username': username, 'address': address, 'zipcode': zipcode})
@@ -51,8 +48,7 @@ def add_user(username, pass_hash, address, zipcode):
         return "New Account Created"
 
     except sqlite3.IntegrityError:
-        print "A user already exists with this username. Try again."
-        return "A user already exists with this username. Try again."
+        raise UserIntegrityError("User already exists")
 
 
 
@@ -71,3 +67,8 @@ def __db_connect():
 def __query_path(file_name):
     query_path = os.path.join(dir_path, '../Database/' + file_name)
     return query_path
+
+class UserIntegrityError(Exception):
+    pass
+class LocationError(Exception):
+    pass
