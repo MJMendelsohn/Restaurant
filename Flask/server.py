@@ -40,7 +40,7 @@ def hash_pass(password):
 def handle_survey():
     query_results = sql.execute_survey_query(request.form)
     filtered_restaurant_data = psf.filter(query_results, request.form)
-    return render_template('survey_resp.html', restaurants=query_results)
+    return render_template('swipe.html', restaurants=query_results)
 
 def check_valid_login(username, password):
     if (username is '' or password is ''):
