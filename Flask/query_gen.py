@@ -1,8 +1,10 @@
 import sqlite3
 import os
+from geopy.geocoders import Nominatim
 
 dir_path = os.path.dirname(__file__)
 db = sqlite3.connect(os.path.join(dir_path, '../Database/RMatch.db'))
+geolocator = Nominatim()
 
 # @param responses: dictionary of survey responses with data for query
 # @returns list containing query result tuples
@@ -18,6 +20,15 @@ def execute_survey_query(responses):
 def add_user(username, pass_hash, address, zipcode):
     cursor = __db_connect()
 
+    user_loc_str = address + " " + str(zipcode)
+    user_location = geolocator.geocode(user_loc_str)
+
+    try:
+        user_lat_long = (user_location.latitude, user_location.longitude)
+    except:
+        print "Address and Zipcode are not compatible with the geolocator. Please try again. User not added."
+        return "Address and Zipcode are not compatible with the geolocator. Please try again. User not added."
+
     try:
         with open(__query_path('add_user.sql')) as query_file:
             cursor.execute(query_file.read(), {'username': username, 'password': pass_hash})
@@ -27,13 +38,22 @@ def add_user(username, pass_hash, address, zipcode):
             with open(__query_path('add_user_location.sql')) as query_file:
                 cursor.execute(query_file.read(), {'address': address, 'zipcode': zipcode})
                 db.commit()
-        except sqlite3.IntegrityError: print "location not added"
+
+        except sqlite3.IntegrityError:
+            print "The address and zipcode combination entered was not valid. Try again."
+            return "The address and zipcode combination entered was not valid. Try again."
+
 
         with open(__query_path('add_user_livesat.sql')) as query_file:
             cursor.execute(query_file.read(), {'username': username, 'address': address, 'zipcode': zipcode})
             db.commit()
-            
-    except sqlite3.IntegrityError: print "user not added"
+
+        return "New Account Created"
+
+    except sqlite3.IntegrityError:
+        print "A user already exists with this username. Try again."
+        return "A user already exists with this username. Try again."
+
 
 
 def execute_login(username):
