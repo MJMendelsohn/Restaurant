@@ -14,7 +14,7 @@ def execute_survey_query(responses):
     formality = responses['formal'].lower()
 
     with open(__query_path('survey_queries.sql')) as query_file:
-        cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'], 'new_or_old': responses['newOld']})
+        cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'],'maximum': responses['maximum'], 'new_or_old': responses['newOld']})
     return cursor.fetchall()
 
 def add_user(username, pass_hash, address, zipcode):
