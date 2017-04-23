@@ -12,7 +12,7 @@ def execute_survey_query(responses):
     formality = responses['formal'].lower()
 
     with open(__query_path('survey_queries.sql')) as query_file:
-        cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'], 'new_or_old': responses['newOld']})
+        cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'], 'new_or_old': responses['new_or_old'], 'maximum':responses['maximum']})
     return cursor.fetchall()
 
 def add_user(username, pass_hash, address, zipcode):
@@ -32,7 +32,7 @@ def add_user(username, pass_hash, address, zipcode):
         with open(__query_path('add_user_livesat.sql')) as query_file:
             cursor.execute(query_file.read(), {'username': username, 'address': address, 'zipcode': zipcode})
             db.commit()
-            
+
     except sqlite3.IntegrityError: print "user not added"
 
 

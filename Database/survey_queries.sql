@@ -19,7 +19,7 @@ AND
 AND 
 u.username = d.username
 AND
-EXECUTES ONE OR THE OTHER BASED ON IF USER WANTS OLD/NEW RESTAURANT
+--EXECUTES ONE OR THE OTHER BASED ON IF USER WANTS OLD/NEW RESTAURANT
 (:new_or_old = 1 AND d.rest_id=r.rest_id) OR
 (:new_or_old = 0 AND d.rest_id!=r.rest_id);
 
