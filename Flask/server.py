@@ -31,7 +31,7 @@ def create_new_account():
     if (request.form['password'] != request.form['confirm_password']):
         return "Passwords do not match"
     return sql.add_user(request.form['username'], hash_pass(request.form['password']) ,request.form['address'], request.form['zipcode'])
-    
+
 
 def hash_pass(password):
     return hashlib.md5(password).digest().encode('hex')
@@ -39,7 +39,7 @@ def hash_pass(password):
 @app.route('/survey', methods = ['POST'])
 def handle_survey():
     query_results = sql.execute_survey_query(request.form)
-    filtered_restaurant_data = psf.filter(query_results, request.form)
+    #filtered_restaurant_data = psf.filter(query_results, request.form)
     return render_template('survey_resp.html', restaurants=query_results)
 
 def check_valid_login(username, password):
