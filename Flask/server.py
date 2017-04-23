@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 import query_gen as sql
-
+import post_survey_filter as psf
 import hashlib
 
 app = Flask(__name__)
@@ -30,7 +30,7 @@ def handle_create_account():
 def create_new_account():
     if (request.form['password'] != request.form['confirm_password']):
         return "Passwords do not match"
-    sql.add_user(request.form['username'], hash_pass(request.form['password']))
+    sql.add_user(request.form['username'], hash_pass(request.form['password']) ,request.form['address'], request.form['zipcode'])
     return "New Account Created"
 
 def hash_pass(password):
@@ -39,7 +39,8 @@ def hash_pass(password):
 @app.route('/survey', methods = ['POST'])
 def handle_survey():
     query_results = sql.execute_survey_query(request.form)
-    return render_template('survey_resp.html', restaurants=query_results)
+    filtered_restaurant_data = psf.filter(query_results, request.form)
+    return render_template('swipe.html', restaurants=query_results)
 
 def check_valid_login(username, password):
     if (username is '' or password is ''):
