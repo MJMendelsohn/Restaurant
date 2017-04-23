@@ -28,7 +28,7 @@ def handle_create_account():
 
 @app.route('/new_account', methods = ['POST'])
 def create_new_account():
-    if (request.form['password'] != request.form['confirm_password']):
+    if (request.form['password'] is not request.form['confirm_password']):
         return "Passwords do not match"
     sql.add_user(request.form['username'], hash_pass(request.form['password']))
     return "New Account Created"
@@ -47,6 +47,10 @@ def check_valid_login(username, password):
     hashed_pass = hash_pass(password)
     db_pass = sql.execute_login(username)
     return (db_pass is not None and db_pass[0] == hashed_pass)
+
+@app.route('/add_friends')
+def add_new_friend():
+    return render_template('add_friends.html')
 
 if __name__ == '__main__':
     app.run()
