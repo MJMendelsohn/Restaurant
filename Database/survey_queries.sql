@@ -7,10 +7,10 @@ r.attire = :formal
 AND
 (:alcohol = 1 AND r.alcohol = :alcohol)
 AND
-((:maximum<='7') AND (r.price_range = '1' )) OR
+(((:maximum<='7') AND (r.price_range = '1' )) OR
 ((:maximum<='14') AND (r.price_range = '1' OR r.price_range='2')) OR
 ((:maximum<='21') AND (r.price_range = '1' OR r.price_range='2' OR r.price_range = '3')) OR
-((:maximum<='28') AND (r.price_range = '1' OR r.price_range='2' OR r.price_range = '3' OR r.price_range = '4')) 
+((:maximum<='28') AND (r.price_range = '1' OR r.price_range='2' OR r.price_range = '3' OR r.price_range = '4')))
 -- THIS SYNTAX EXECUTES ONE THING OR THE OTHER, I.E., IF USER SELECTS DELIVERY, IT ONLY CHECKS TO SEE IF R.DELIVERS IS TRUE
 AND
 ((:delivery = 'Dining') OR
