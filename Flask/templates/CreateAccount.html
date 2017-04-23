@@ -10,6 +10,9 @@
   Enter a username:<br>
   <input type="text" name="username">
   <br><br>
+  {% if message != "" %}
+  <p style="color:red"> {{ message }} </p>
+  {% endif %}
   Enter a password:<br>
   <input type="password" name="password">
   <br><br>
