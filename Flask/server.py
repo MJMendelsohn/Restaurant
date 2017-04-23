@@ -29,15 +29,23 @@ def handle_create_account():
 @app.route('/new_account', methods = ['POST'])
 def create_new_account():
     if (request.form['password'] != request.form['confirm_password']):
-        return "Passwords do not match"
-    sql.add_user(request.form['username'], hash_pass(request.form['password']) ,request.form['address'], request.form['zipcode'])
-    return "New Account Created"
+        return render_template('CreateAccount.html', message='Passwords do not match')
+    if (request.form['password'] == ""):
+        return render_template('CreateAccount.html', message='Please enter password')
+
+    try:
+        sql.add_user(request.form['username'], hash_pass(request.form['password']) ,request.form['address'], request.form['zipcode'])
+        return render_template('account_creation_response.html', message='New Account Created')
+    except:
+        return render_template('account_creation_response.html', message='Account Not Created')
+
 
 def hash_pass(password):
     return hashlib.md5(password).digest().encode('hex')
 
 @app.route('/survey', methods = ['POST'])
 def handle_survey():
+    print request.form
     query_results = sql.execute_survey_query(request.form)
     filtered_restaurant_data = psf.filter(query_results, request.form)
     return render_template('swipe.html', restaurants=query_results)
@@ -48,6 +56,10 @@ def check_valid_login(username, password):
     hashed_pass = hash_pass(password)
     db_pass = sql.execute_login(username)
     return (db_pass is not None and db_pass[0] == hashed_pass)
+
+@app.route('/add_friends')
+def add_new_friend():
+    return render_template('add_friends.html')
 
 if __name__ == '__main__':
     app.run()
