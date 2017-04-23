@@ -1,5 +1,5 @@
-var images = {{filtered_restaurant_data|tojson}};
-var desc = ["Do you want a restaurant that delivers?", "Do you want to go to a fast-food restaurant?", "Do you want a fancy restaurant?"];
+var images = ["delivery.jpg", "fancy.jpg", "fast-food.jpg"];
+var desc = {{filtered_restaurant_data|tojson}};
 var userSelected = [];
 var curImage;
 
