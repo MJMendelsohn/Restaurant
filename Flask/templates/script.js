@@ -1,5 +1,5 @@
 var images = ["delivery.jpg", "fancy.jpg", "fast-food.jpg"];
-var desc = {{filtered_restaurant_data|tojson}};
+var desc = {{filtered_restaurant_data[0]}};
 var userSelected = [];
 var curImage;
 
