@@ -2,7 +2,7 @@ var images = ["delivery.jpg", "fancy.jpg", "fast-food.jpg"];
 //alert({{filtered_restaurant_data[0]}});
 //var desc = [{{filtered_restaurant_data[0]}}, {{filtered_restaurant_data[1]}}];
 
-var desc = filtered_restaurant_data;
+var desc = {{filtered_restaurant_data}};
 
 var userSelected = [];
 var curImage;
