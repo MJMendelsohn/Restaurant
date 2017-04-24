@@ -110,5 +110,5 @@ CREATE TABLE DinesAt
   rest_id INTEGER REFERENCES Restaurant(rest_id) ON DELETE CASCADE ON UPDATE CASCADE,
   party_size INTEGER,
   dining_date VARCHAR(256),
-  PRIMARY KEY (username, rest_id)
+  PRIMARY KEY (username, rest_id, dining_date)
 );
