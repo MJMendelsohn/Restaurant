@@ -1,11 +1,15 @@
 var images = ["delivery.jpg", "fancy.jpg", "fast-food.jpg"];
-var desc = {{filtered_restaurant_data|tojson}};
+//alert({{filtered_restaurant_data[0]}});
+//var desc = [{{filtered_restaurant_data[0]}}, {{filtered_restaurant_data[1]}}];
+
+var desc = filtered_restaurant_data;
+
 var userSelected = [];
 var curImage;
 
 var j = 0;
 
-for (var i = 0; i < images.length; i++) {
+for (var i = 0; i < desc.length; i++) {
   userSelected.push(0);
 }
 
@@ -13,7 +17,7 @@ function leftSelect() {
   curImage = document.getElementById("currImage").src;
   userSelected[j] = 0;
 
-  if (j < images.length - 1) {
+  if (j < desc.length - 1) {
     j = j + 1;
   }
   //alert("Hello");
@@ -25,7 +29,7 @@ function rightSelect() {
   curImage = document.getElementById("currImage").src;
   userSelected[j] = 1;
 
-  if (j < images.length - 1) {
+  if (j < desc.length - 1) {
     j = j + 1;
   }
   document.getElementById("currImage").src = images[j];
@@ -58,3 +62,25 @@ $(document).keydown(function(e) {
   e.preventDefault();
 }
 );
+
+if (j == desc.length - 1) {
+  alert(desc[desc.length - 1]);
+}
+
+var select = document.getElementById("selector");
+
+for(var i = 0; i < desc.length; i++) {
+  if (userSelected[i] == 1) {
+    var opt = desc[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el);
+  }
+}​
+
+var userChoice = select.options[select.selectedIndex].text;
+
+document.getElementById('button').onclick = function() {
+   alert(userChoice);
+}​;​
