@@ -78,3 +78,7 @@ for(var i = 0; i < desc.length; i++) {
 }​
 
 var userChoice = select.options[select.selectedIndex].text;
+
+document.getElementById('button').onclick = function() {
+   alert(userChoice);
+}​;​
