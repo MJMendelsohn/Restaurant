@@ -5,7 +5,7 @@
 <title>Questionaire</title></head>
 <body>
 <h3><br>Restaurant Questionaire</h3>
-<form action=/survey method="post">
+<form id='form' action=/survey method="post">
  Enter a username:<br>
   <input type="text" name="username">
   <br><br>
@@ -46,5 +46,8 @@ Would you prefer to visit a new restaurant or one you've visited already? <br>
  <input type="submit" value="Submit">
 </form>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="{{ url_for('static',  filename='survey.js') }}" />
 </body>
 </html>
