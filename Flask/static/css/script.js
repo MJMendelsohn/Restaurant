@@ -1,4 +1,4 @@
-var images = ["delivery.jpg", "fancy.jpg", "fast-food.jpg"];
+var images = ["img1.jpg", "img2.jpg", "img3.png", "img4.jpg", "img5.png", "img6.jpg", "img7.jpg", "img8.jpg", "img9.jpg", "img10.jpg"];
 //alert({{filtered_restaurant_data[0]}});
 //var desc = [{{filtered_restaurant_data[0]}}, {{filtered_restaurant_data[1]}}];
 
