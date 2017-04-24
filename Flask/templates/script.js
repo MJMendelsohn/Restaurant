@@ -1,12 +1,15 @@
 var images = ["delivery.jpg", "fancy.jpg", "fast-food.jpg"];
-alert({{filtered_restaurant_data[0]}});
+//alert({{filtered_restaurant_data[0]}});
 //var desc = [{{filtered_restaurant_data[0]}}, {{filtered_restaurant_data[1]}}];
+
+var desc = {{filtered_restaurant_data}};
+
 var userSelected = [];
 var curImage;
 
 var j = 0;
 
-for (var i = 0; i < images.length; i++) {
+for (var i = 0; i < desc.length; i++) {
   userSelected.push(0);
 }
 
@@ -14,7 +17,7 @@ function leftSelect() {
   curImage = document.getElementById("currImage").src;
   userSelected[j] = 0;
 
-  if (j < images.length - 1) {
+  if (j < desc.length - 1) {
     j = j + 1;
   }
   //alert("Hello");
@@ -26,7 +29,7 @@ function rightSelect() {
   curImage = document.getElementById("currImage").src;
   userSelected[j] = 1;
 
-  if (j < images.length - 1) {
+  if (j < desc.length - 1) {
     j = j + 1;
   }
   document.getElementById("currImage").src = images[j];
@@ -59,3 +62,7 @@ $(document).keydown(function(e) {
   e.preventDefault();
 }
 );
+
+if (j == desc.length - 1) {
+  alert(desc[desc.length - 1]);
+}
