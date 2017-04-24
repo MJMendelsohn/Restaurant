@@ -66,3 +66,19 @@ $(document).keydown(function(e) {
 if (j == desc.length - 1) {
   alert(desc[desc.length - 1]);
 }
+
+var select = document.getElementById("selector");
+
+for(var i = 0; i < desc.length; i++) {
+    var opt = desc[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el);
+}​
+
+var userChoice = select.options[select.selectedIndex].text;
+
+document.getElementById('button').onclick = function() {
+   alert(userChoice);
+}​;​
