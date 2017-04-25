@@ -1,5 +1,5 @@
 function createSwipe(survey_results) {
-    var images = ["delivery.jpg", "fast-food.jpg", "fancy.jpg"];
+    var images = ["img1.jpg", "img2.jpg", "img3.png", "img4.jpg", "img5.png", "img6.jpg", "img7.jpg", "img8.jpg", "img9.jpg", "img10.jpg"];
 //    var desc = ["Do you want a restaurant that delivers?", "Do you want to go to a fast-food restaurant?", "Do you want a fancy restaurant?"];
     var desc = survey_results;
     var userSelected = [];
@@ -23,7 +23,7 @@ function createSwipe(survey_results) {
         j = j + 1;
       }
       //alert("Hello");
-      //document.getElementById("currImage").src = images[j];
+      document.getElementById("currImage").src = "static/"+images[j];
       document.getElementById("caption").innerHTML = desc[j];
     });
 
@@ -36,7 +36,7 @@ function createSwipe(survey_results) {
       if (j < desc.length - 1) {
         j = j + 1;
       }
-      //document.getElementById("currImage").src = images[j];
+      document.getElementById("currImage").src = "static/"+images[j];
       document.getElementById("caption").innerHTML = desc[j];
     });
 }
