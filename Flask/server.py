@@ -11,6 +11,10 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
     #Temporary until homepage is created
+    return render_template('TopPane.html')
+
+@app.route('/login_page')
+def login_page():
     return render_template('LoginPage.html')
 
 def survey():
