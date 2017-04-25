@@ -1,11 +1,13 @@
 <html>
 <head>
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/survey.css') }}">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',  filename='survey.js') }}" ></script>
 
 <title>Questionaire</title></head>
 <body>
 <h3><br>Restaurant Questionaire</h3>
-<form id='form' action=/survey method="post">
+<form id='form' method="post">
  Enter a username:<br>
   <input type="text" name="username">
   <br><br>
@@ -37,17 +39,14 @@ Dining, Take-Out, or Delivery? <br>
   <option value="Delivery">Delivery</option>
   </select><br><br>
 Would you prefer to visit a new restaurant or one you've visited already? <br>
-<select name="newOld">
+<select name="new_or_old">
     <option value="0">New</option>
     <option value="1">Old</option>
 <option value="2">No Preference</option>
   </select><br>
 <br>
- <input type="submit" value="Submit">
+<button id="submit" type="button">Submit</button>
 </form>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script> 
-<script src="{{ url_for('static',  filename='survey.js') }}" />
 </body>
 </html>
