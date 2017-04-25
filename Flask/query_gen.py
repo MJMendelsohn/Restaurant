@@ -44,7 +44,7 @@ def add_user(username, pass_hash, address, zipcode):
         with open(__query_path('add_user_livesat.sql')) as query_file:
             cursor.execute(query_file.read(), {'username': username, 'address': address, 'zipcode': zipcode})
             db.commit()
-        return "New Account Created"
+        return
 
     except sqlite3.IntegrityError:
         raise UserIntegrityError("User already exists")
