@@ -38,7 +38,26 @@ function createSwipe(survey_results) {
       document.getElementById("currImage").src = "static/"+images[j];
       document.getElementById("caption").innerHTML = r_data_process(desc[j]);
     });
+    
+    
+    var select = document.getElementById("selector");
+
+    for(var i = 0; i < desc.length; i++) {
+        var opt = desc[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        select.appendChild(el);
+    }​
+
+    var userChoice = select.options[select.selectedIndex].text;
+
+    document.getElementById('button').onclick = function() {
+       alert(userChoice);
+    }​;​
 }
+
+
 function r_data_process(r_data){
   r_data = r_data[0];
   console.log("here2");
