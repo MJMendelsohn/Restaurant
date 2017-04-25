@@ -51,5 +51,9 @@ def check_valid_login(username, password):
     db_pass = sql.execute_login(username)
     return (db_pass is not None and db_pass[0] == hashed_pass)
 
+@app.route('/swipe')
+def swipe():
+    return render_template('swipe.html')
+
 if __name__ == '__main__':
     app.run()
