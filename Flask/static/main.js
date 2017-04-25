@@ -2,11 +2,13 @@ $( document ).ready(function() {
   $("#body").load("/login_page");
   $("#login").on("click", function () {
     $("#body").load("/login_page");
-    $("#login").tab("show");
+    $("#login").addClass('active');
+    $("#survey").removeClass('active');
   });
   $("#survey").on("click", function () {
     $("#body").load("/survey_page");
-    $("#survey").tab("show");
+    $("#survey").addClass('active');
+    $("#login").removeClass('active');
   });
   $("#friends").on("click", function () {
     //$("#body").load("/login_page");
