@@ -1,5 +1,7 @@
 $( document ).ready(function() {
-  $("#body").load("/login_page");
+  $("#body").load("/survey_page");
+  $("#survey").addClass('active');
+
   $("#login").on("click", function () {
     $("#body").load("/login_page");
     $("#login").addClass('active');
@@ -14,3 +16,6 @@ $( document ).ready(function() {
     //$("#body").load("/login_page");
   });
 });
+
+function enableSurvey() {
+}

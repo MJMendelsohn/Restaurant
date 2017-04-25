@@ -11,20 +11,23 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
     #Temporary until homepage is created
-    return render_template('TopPane.html')
+    return render_template('LoginPage.html')
 
 @app.route('/login_page')
 def login_page():
     return render_template('LoginPage.html')
 
 def survey():
-    return render_template('survey.html')
+    if (username != None and username != ""):
+        return render_template('survey.html', username=username)
+    else:
+        return login_page()
 
 @app.route('/login', methods = ['POST'])
 def handle_login():
     if (check_valid_login(request.form['username'], request.form['password'])):
         set_global_username(request.form['username'])
-        return survey()
+        return render_template('TopPane.html')
     else:
         return "Login Not Valid"
 
