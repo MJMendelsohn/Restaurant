@@ -9,10 +9,9 @@ dir_path2 = os.path.dirname(__file__)
 db = sqlite3.connect(os.path.join(dir_path2, '../Database/RMatch.db'))
 geolocator = Nominatim()
 
-def filter(restaurants, responses):
+def filter(restaurants, responses, username):
 
-    username = responses['username']
-
+    print username
     restaurants_with_latlong = get_latlong(restaurants)
     restaurants_with_distances = compute_distances(restaurants_with_latlong, username)
     restaurants_with_distances.sort(key = lambda tup: tup[3])
