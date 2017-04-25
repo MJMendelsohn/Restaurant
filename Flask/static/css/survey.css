@@ -1,6 +1,10 @@
 
 body {
 font-family: "Raleway", sans-serif;
+background-image: url(fancy_edit.jpg);
+background-size: 40% 100%;
+background-position: right top;
+background-repeat:no-repeat;
 }
 
 h3{
