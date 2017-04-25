@@ -19,6 +19,7 @@ def survey():
 @app.route('/login', methods = ['POST'])
 def handle_login():
     if (check_valid_login(request.form['username'], request.form['password'])):
+        set_global_username(request.form['username'])
         return survey()
     else:
         return "Login Not Valid"
@@ -40,16 +41,19 @@ def hash_pass(password):
 @app.route('/survey', methods = ['POST'])
 def handle_survey():
     query_results = sql.execute_survey_query(request.form)
-    return json.dumps(query_results)
-    #filtered_restaurant_data = psf.filter(query_results, request.form)
+    filtered_restaurant_data = psf.filter(query_results, request.form, username)
     #return render_template('swipe.html', restaurants=query_results)
-
+    return json.dumps(filtered_restaurant_data)
 def check_valid_login(username, password):
     if (username is '' or password is ''):
         return False
     hashed_pass = hash_pass(password)
     db_pass = sql.execute_login(username)
     return (db_pass is not None and db_pass[0] == hashed_pass)
+
+def set_global_username(val):
+    global username
+    username = val
 
 @app.route('/swipe')
 def swipe():
