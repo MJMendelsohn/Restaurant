@@ -25,6 +25,7 @@ function createSwipe(survey_results) {
       //alert("Hello");
       document.getElementById("currImage").src = "static/"+images[j];
       document.getElementById("caption").innerHTML = r_data_process(desc[j]);
+      selector();
     });
 
     var right = document.getElementById("right-arrow");
@@ -39,27 +40,33 @@ function createSwipe(survey_results) {
       swipeCount++;
       document.getElementById("currImage").src = "static/"+images[j];
       document.getElementById("caption").innerHTML = r_data_process(desc[j]);
+      selector();
     });
     
     
     var select = document.getElementById("selector");
-
-    for(var i = 0; i < desc.length; i++) {
-        var opt = desc[i];
-        var el = document.createElement("option");
-        el.textContent = opt;
-        el.value = opt;
-        select.appendChild(el);
-    } 
-
-    var userChoice = select.options[select.selectedIndex].text;
-
-    document.getElementById('button').onclick = function() {
-       alert(userChoice);
-    };
+    var choose = document.getElementById("choose")
+    choose.style.display="none";
     
-    if (swipeCount == desc.length) {
-        instance.web.Model("server.py").get_func("show_results");
+    function selector() {
+        if (swipeCount == desc.length) {
+
+            for(var i = 0; i < desc.length; i++) {
+                var opt = desc[i];
+                var el = document.createElement("option");
+                el.textContent = opt;
+                el.value = opt;
+                select.appendChild(el);
+            } 
+
+            var userChoice = select.options[select.selectedIndex].text;
+            choose.style.display="block";
+
+            document.getElementById('button').onclick = function() {
+              alert(userChoice);
+            };
+            //instance.web.Model("server.py").get_func("show_results");
+        }
     }
 }
 
