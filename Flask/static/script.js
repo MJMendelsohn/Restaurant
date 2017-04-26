@@ -49,9 +49,12 @@ function createSwipe(survey_results) {
 
     var select = document.getElementById("selector");
     var choose = document.getElementById("choose");
+    var chooseOne = document.getElementById("chooseOne");
     var none = document.getElementById("none");
+    var button = document.getElementById("button");
     none.style.display="none";
     choose.style.display="none";
+
 
     function selector() {
         if (swipeCount == desc.length) {
@@ -87,6 +90,10 @@ function createSwipe(survey_results) {
     }
 }
 
+function loadRestaurant() {
+    $("#main").load("/final_restaurant", data=$("#selector").serialize());
+    
+}
 
 function r_data_process(r_data){
   r_data = r_data[0];

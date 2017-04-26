@@ -56,7 +56,6 @@ def create_new_account():
         return render_template('CreateAccount.html', message="Location is not valid")
 
 
-
 def hash_pass(password):
     return hashlib.md5(password).digest().encode('hex')
 
@@ -68,16 +67,9 @@ def handle_survey():
     else:
         set_global_party_size(1)
 
-    print query_results
-    print "length is"
-    print len(query_results)
-    if not(len(query_results) > 0):
-        print "done"
-        return render_template('FinalRecommendation.html', restaurant="No restaurant matched your criteria")
-    else:
-        filtered_restaurant_data = psf.filter(query_results, request.form, username)
-        set_global_rest_data(filtered_restaurant_data)
-        return json.dumps(filtered_restaurant_data)
+    filtered_restaurant_data = psf.filter(query_results, request.form, username)
+    set_global_rest_data(filtered_restaurant_data)
+    return json.dumps(filtered_restaurant_data)
 
 def check_valid_login(username, password):
     if (username is '' or password is ''):
@@ -86,10 +78,13 @@ def check_valid_login(username, password):
     db_pass = sql.execute_login(username)
     return (db_pass is not None and db_pass[0] == hashed_pass)
 
-@app.route('/final_restaurant', methods = ['POST'])
+@app.route('/restaurant_page')
+def rest_recommendation():
+    return render_template('FinalRecommendation.html')
+
+@app.route('/final_restaurant')
 def add_final_restaurant():
-    print request.form['restaurant']
-    set_global_restaurant(request.form['restaurant'])
+    set_global_restaurant(request.args['restaurant'])
     rest_id = 1;
     for rest in rest_data:
         r_data = rest[0]

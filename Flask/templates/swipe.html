@@ -7,7 +7,7 @@
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
   <link href="{{ url_for('static', filename='css/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <!-- jQuery library -->
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <!-- Latest compiled JavaScript -->
   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   <script src="{{ url_for('static', filename='css/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -40,13 +40,11 @@ background: #1abc9c
     </div>
   </div>
   <div id="choose" align="center">
-  <form id="chooseOne" action="/final_restaurant" method="post">
-    <select id="selector" name = "restaurant">
-      <option>Choose a restaurant</option>
-    </select>
-    <input id="button" type="submit" value="Choose"></input>
+  <select id="selector" name = "restaurant">
+    <option>Choose a restaurant</option>
+  </select>
+  <button id="button" onclick="loadRestaurant()">Choose</button>
 
-  </form>
   </div>
   <div class = "title" id="none" align="center">
     <h1 style="text-align:center;"><b>You Didn't Swipe Right On Any Restaurants!</b></h1>
