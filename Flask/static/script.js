@@ -4,7 +4,7 @@ function createSwipe(survey_results) {
     var desc = survey_results;
     var userSelected = [];
     var j = 1;
-
+    var swipeCount = 0;
     for (var i = 0; i < images.length; i++) {
       userSelected.push(0);
     }
@@ -21,6 +21,7 @@ function createSwipe(survey_results) {
       if (j < desc.length - 1) {
         j = j + 1;
       }
+      swipeCount++;
       //alert("Hello");
       document.getElementById("currImage").src = "static/"+images[j];
       document.getElementById("caption").innerHTML = r_data_process(desc[j]);
@@ -35,6 +36,7 @@ function createSwipe(survey_results) {
       if (j < desc.length - 1) {
         j = j + 1;
       }
+      swipeCount++;
       document.getElementById("currImage").src = "static/"+images[j];
       document.getElementById("caption").innerHTML = r_data_process(desc[j]);
     });
@@ -55,6 +57,10 @@ function createSwipe(survey_results) {
     document.getElementById('button').onclick = function() {
        alert(userChoice);
     }​;​
+    
+    if (swipeCount == desc.length) {
+        instance.web.Model("server.py").get_func("show_results");
+    }
 }
 
 
