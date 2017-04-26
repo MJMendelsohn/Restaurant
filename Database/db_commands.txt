@@ -1,0 +1,4 @@
+.mode csv
+.import ./Database/restaurant_data.csv Restaurant
+.import ./Database/location_data.csv Location
+.import ./Database/restaurant_at_data.csv RestaurantAt
