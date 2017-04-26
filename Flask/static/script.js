@@ -50,13 +50,13 @@ function createSwipe(survey_results) {
         el.textContent = opt;
         el.value = opt;
         select.appendChild(el);
-    }​
+    } 
 
     var userChoice = select.options[select.selectedIndex].text;
 
     document.getElementById('button').onclick = function() {
        alert(userChoice);
-    }​;​
+    };
     
     if (swipeCount == desc.length) {
         instance.web.Model("server.py").get_func("show_results");
