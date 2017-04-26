@@ -29,7 +29,7 @@ def handle_login():
         set_global_username(request.form['username'])
         return render_template('TopPane.html')
     else:
-        return "Login Not Valid"
+        return render_template('account_creation_response.html', message="Login Not Valid")
 
 @app.route('/survey_page')
 def survey_page():
