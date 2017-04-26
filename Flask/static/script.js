@@ -59,6 +59,8 @@ function createSwipe(survey_results) {
           var cap = document.getElementById("caption");
           var rule = document.getElementById("rule");
           var rest = document.getElementById("rest");
+          var lr = document.getElementById("lr");
+          lr.style.display="none";
           rest.style.display="none";
           rule.style.display="none";
           pic.style.display="none";
