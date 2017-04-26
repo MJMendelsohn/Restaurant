@@ -82,5 +82,8 @@ def set_global_username(val):
 def swipe():
     return render_template('swipe.html')
 
+def show_results():
+    return render_template('chooseOne.html')
+
 if __name__ == '__main__':
     app.run()
