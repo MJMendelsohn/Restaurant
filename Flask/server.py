@@ -63,6 +63,7 @@ def hash_pass(password):
 @app.route('/survey', methods = ['POST'])
 def handle_survey():
     query_results = sql.execute_survey_query(request.form)
+    print query_results
     filtered_restaurant_data = psf.filter(query_results, request.form, username)
     return json.dumps(filtered_restaurant_data)
 

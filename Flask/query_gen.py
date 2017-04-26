@@ -12,10 +12,20 @@ def execute_survey_query(responses):
     cursor = __db_connect()
 
     formality = responses['formal'].lower()
-    max = int(responses['maximum'])
-
+    max_val = responses['maximum']
+    p_range = 0;
+    if max_val <= 7:
+        p_range = 1
+    elif max_val <= 14:
+        p_range = 2
+    elif max_val <= 21:
+        p_range = 3
+    elif max_val <= 28:
+        p_range = 4
+    else:
+        p_range = 5
     with open(__query_path('survey_queries.sql')) as query_file:
-        cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'], 'new_or_old': responses['new_or_old'], 'maximum':max})
+        cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'], 'new_or_old': responses['new_or_old'], 'maximum':p_range})
     return cursor.fetchall()
 
 def add_user(username, pass_hash, address, zipcode):
