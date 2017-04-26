@@ -3,9 +3,10 @@ function createSwipe(survey_results) {
 //    var desc = ["Do you want a restaurant that delivers?", "Do you want to go to a fast-food restaurant?", "Do you want a fancy restaurant?"];
     var desc = survey_results;
     var userSelected = [];
-    var j = 1;
+    var j = 0;
     var swipeCount = 0;
-    for (var i = 0; i < images.length; i++) {
+    console.log(desc.length);
+    for (var i = 0; i < desc.length; i++) {
       userSelected.push(0);
     }
 
@@ -15,57 +16,71 @@ function createSwipe(survey_results) {
     document.getElementById("caption").innerHTML = r_data_process(desc[0]);
 
     left.addEventListener("click", function() {
-      var curImage = document.getElementById("currImage").src;
-      userSelected[j] = 0;
-
-      if (j < desc.length - 1) {
-        j = j + 1;
-      }
       swipeCount++;
-      //alert("Hello");
-      document.getElementById("currImage").src = "static/"+images[j];
-      document.getElementById("caption").innerHTML = r_data_process(desc[j]);
-      selector();
+      if(j < desc.length)
+          userSelected[j] = 0;
+      if(swipeCount == desc.length)
+        selector();
+      var curImage = document.getElementById("currImage").src;
+      j = j + 1;
+      if (j < desc.length) {
+              document.getElementById("currImage").src = "static/"+images[j];
+              document.getElementById("caption").innerHTML = r_data_process(desc[j]);
+      }
     });
 
     var right = document.getElementById("right-arrow");
 
     right.addEventListener("click", function() {
-      var curImage = document.getElementById("currImage").src;
-      userSelected[j] = 1;
-
-      if (j < desc.length - 1) {
-        j = j + 1;
-      }
       swipeCount++;
-      document.getElementById("currImage").src = "static/"+images[j];
-      document.getElementById("caption").innerHTML = r_data_process(desc[j]);
-      selector();
+      if(j < desc.length)
+          userSelected[j] = 1;
+      if(swipeCount == desc.length)
+        selector();
+      var curImage = document.getElementById("currImage").src;
+
+      j = j + 1;
+      if (j < desc.length) {
+        document.getElementById("currImage").src = "static/"+images[j];
+        document.getElementById("caption").innerHTML = r_data_process(desc[j]);
+      }
     });
-    
-    
+
+
     var select = document.getElementById("selector");
-    var choose = document.getElementById("choose")
+    var choose = document.getElementById("choose");
+    var none = document.getElementById("none");
+    none.style.display="none";
     choose.style.display="none";
-    
+
     function selector() {
         if (swipeCount == desc.length) {
-
+          var pic = document.getElementById("currImage");
+          var cap = document.getElementById("caption");
+          var rule = document.getElementById("rule");
+          var rest = document.getElementById("rest");
+          rest.style.display="none";
+          rule.style.display="none";
+          pic.style.display="none";
+          cap.style.display="none";
+            var s_right = 0;
             for(var i = 0; i < desc.length; i++) {
-                var opt = desc[i];
-                var el = document.createElement("option");
-                el.textContent = opt;
-                el.value = opt;
-                select.appendChild(el);
-            } 
+                if(userSelected[i] == 1){
+                  s_right = s_right+1;
+                  var rest = desc[i];
+                  var name = rest[0][1];
+                  var el = document.createElement("option");
+                  el.textContent = name;
+                  el.value = name;
+                  select.appendChild(el);
+              }
+            }
 
-            var userChoice = select.options[select.selectedIndex].text;
-            choose.style.display="block";
-
-            document.getElementById('button').onclick = function() {
-              alert(userChoice);
-            };
-            //instance.web.Model("server.py").get_func("show_results");
+            if(s_right> 0)
+              choose.style.display="block";
+            else {
+              none.style.display="block";
+            }
         }
     }
 }
@@ -73,7 +88,6 @@ function createSwipe(survey_results) {
 
 function r_data_process(r_data){
   r_data = r_data[0];
-  console.log("here2");
   console.log(r_data);
   console.log(r_data[1]);
   var r_strings = [];

@@ -10,11 +10,6 @@
   <h3><br>Restaurant Questionaire</h3>
   <h4><br>Hello {{ username }}!</h4>
   <form id='form' method="post">
-  Select the distance you are willing to travel: <br>
-    <select name="distance">
-      <option value="0">Near</option>
-      <option value="1">Far</option>
-    </select><br><br>
   How large is your party?: <br>
     <input type="text" name="partysize">
     <br><br>
@@ -39,9 +34,9 @@
     </select><br><br>
   Would you prefer to visit a new restaurant or one you've visited already? <br>
   <select name="new_or_old">
-      <option value="0">New</option>
-      <option value="1">Old</option>
-  <option value="2">No Preference</option>
+      <option value="0">Any</option>
+      <option value="1">Previously Visited</option>
+
     </select><br>
   <br>
   <button id="submit" type="button">Submit</button>

@@ -62,10 +62,22 @@ def hash_pass(password):
 
 @app.route('/survey', methods = ['POST'])
 def handle_survey():
-    query_results = sql.execute_survey_query(request.form)
+    query_results = sql.execute_survey_query(request.form, username)
+    if not(request.form['partysize'] == ''):
+        set_global_party_size(request.form['partysize'])
+    else:
+        set_global_party_size(1)
+
     print query_results
-    filtered_restaurant_data = psf.filter(query_results, request.form, username)
-    return json.dumps(filtered_restaurant_data)
+    print "length is"
+    print len(query_results)
+    if not(len(query_results) > 0):
+        print "done"
+        return render_template('FinalRecommendation.html', restaurant="No restaurant matched your criteria")
+    else:
+        filtered_restaurant_data = psf.filter(query_results, request.form, username)
+        set_global_rest_data(filtered_restaurant_data)
+        return json.dumps(filtered_restaurant_data)
 
 def check_valid_login(username, password):
     if (username is '' or password is ''):
@@ -74,9 +86,32 @@ def check_valid_login(username, password):
     db_pass = sql.execute_login(username)
     return (db_pass is not None and db_pass[0] == hashed_pass)
 
+@app.route('/final_restaurant', methods = ['POST'])
+def add_final_restaurant():
+    print request.form['restaurant']
+    set_global_restaurant(request.form['restaurant'])
+    rest_id = 1;
+    for rest in rest_data:
+        r_data = rest[0]
+        if restaurant == r_data[1]:
+            rest_id = r_data[0]
+    sql.add_to_dinesat(username, rest_id, party_size)
+    return render_template('FinalRecommendation.html', restaurant="You chose to visit " + restaurant)
+
 def set_global_username(val):
     global username
     username = val
+def set_global_restaurant(val):
+    global restaurant
+    restaurant = val
+
+def set_global_rest_data(val):
+    global rest_data
+    rest_data = val
+
+def set_global_party_size(val):
+    global party_size
+    party_size = val
 
 @app.route('/swipe')
 def swipe():

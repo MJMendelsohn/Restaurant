@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import time
 from geopy.geocoders import Nominatim
 
 dir_path = os.path.dirname(__file__)
@@ -8,7 +9,7 @@ geolocator = Nominatim()
 
 # @param responses: dictionary of survey responses with data for query
 # @returns list containing query result tuples
-def execute_survey_query(responses):
+def execute_survey_query(responses, username):
     cursor = __db_connect()
 
     formality = responses['formal'].lower()
@@ -24,9 +25,23 @@ def execute_survey_query(responses):
         p_range = 4
     else:
         p_range = 5
-    with open(__query_path('survey_queries.sql')) as query_file:
-        cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'], 'new_or_old': responses['new_or_old'], 'maximum':p_range})
-    return cursor.fetchall()
+    print "this one"
+    print responses['new_or_old']
+    if int(responses['new_or_old']) > 0:
+        print "in here"
+        cursor.execute('SELECT count(*) FROM DinesAt WHERE username = :username', {'username':username})
+        num = cursor.fetchall()
+        print num
+        if num > 0:
+            with open(__query_path('survey_queries_with_d.sql')) as query_file:
+                cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'], 'new_or_old': responses['new_or_old'], 'maximum':p_range})
+            return cursor.fetchall()
+        else:
+            return []
+    else:
+        with open(__query_path('survey_queries.sql')) as query_file:
+            cursor.execute(query_file.read(), {'formal': formality,'alcohol': responses['alcohol'], 'delivery': responses['delivery'], 'new_or_old': responses['new_or_old'], 'maximum':p_range})
+        return cursor.fetchall()
 
 def add_user(username, pass_hash, address, zipcode):
     cursor = __db_connect()
@@ -60,8 +75,13 @@ def add_user(username, pass_hash, address, zipcode):
     except sqlite3.IntegrityError:
         raise UserIntegrityError("User already exists")
 
+def add_to_dinesat(username, rest_id, party_size):
 
-
+    cursor = __db_connect()
+    with open(__query_path('add_restaurant_dinesat.sql')) as query_file:
+        cursor.execute(query_file.read(), {'username': username, 'rest_id': rest_id, 'party_size': party_size, 'date': time.strftime("%c")})
+        db.commit()
+    print "did it"
 def execute_login(username):
     cursor = __db_connect()
 

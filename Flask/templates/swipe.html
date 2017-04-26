@@ -22,27 +22,30 @@
 
 
 <body>
-  <div class="title">
-    <h1 style="text-align:center;"><b>Click left for no and right for yes</b></h1>
+  <div class="title" id = "rule">
+    <h1 style="text-align:center;"><b>Click Left If You're Not Interested, Right If You Are Interested</b></h1>
   </div>
-  <div class="arrows">
-    <input type="image" src="{{ url_for('static', filename='left-arrow.png') }}" name="left-arrow" class="left-arrow" id="left-arrow" style="position:absolute; width:10%; height:20%; left:100px; top:300px;">
-    <input type="image" src="{{ url_for('static', filename='right-arrow.png') }}" name="right-arrow" class="right-arrow" id="right-arrow" style="position:absolute; width:10%; height:20%; right:100px; top:300px;">
+  <div class="arrows" style="width=100px;height=100px">
+    <input type="image" src="{{ url_for('static', filename='left-arrow.png') }}" name="left-arrow" class="left-arrow" id="left-arrow" style="position:absolute; width=50%; height=50%;left:1px; top:250px;">
+    <input type="image" src="{{ url_for('static', filename='right-arrow.png') }}" name="right-arrow" class="right-arrow" id="right-arrow" style="position:absolute; width=50%; height=50%; right:1px; top:250px;">
   </div>
-  <div class="card">
+  <div class="card" style="width=200px;height=300px" id = "rest">
     <img id="currImage" style="width:100%" align="center">
     <div style="text-align:center;border:1px solid blue">
       <h4 id="caption"><b></b></h4>
     </div>
   </div>
-  <div id="choose">
-  <form id="chooseOne">
-    <select id="selector">
+  <div id="choose" align="center">
+  <form id="chooseOne" action="/final_restaurant" method="post">
+    <select id="selector" name = "restaurant">
       <option>Choose a restaurant</option>
     </select>
-    <input id="button" type="submit">
+    <input id="button" type="submit" value="Choose"></input>
+
   </form>
   </div>
+  <div class = "title" id="none" align="center">
+    <h1 style="text-align:center;"><b>You Didn't Swipe Right On Any Restaurants!</b></h1>
 </body>
 <script type="text/javascript" src="{{ url_for('static', filename='script.js')}}"></script>
 
